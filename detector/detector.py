@@ -7,9 +7,10 @@ cascade_path = os.path.join(BASE_DIR, 'models', 'haarcascade_plate.xml')
 cascade = cv2.CascadeClassifier(cascade_path)
 
 if cascade.empty():
-    print("❌ Cascade not loaded. Check file.")
+    print("❌ Cascade not loaded")
 else:
     print("✅ Cascade loaded")
+    
 
 def detect_plate(image_path):
     img = cv2.imread(image_path)
