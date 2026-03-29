@@ -1,4 +1,3 @@
-import easyocr
 import re
 
 reader = None
@@ -6,6 +5,7 @@ reader = None
 def get_reader():
     global reader
     if reader is None:
+        import easyocr  # 👈 moved here
         reader = easyocr.Reader(['en'], gpu=False)
     return reader
 
@@ -21,12 +21,10 @@ def fix_indian_plate(text):
 
 def get_text(image):
     results = get_reader().readtext(image)
-
     texts = []
     for (_, text, _) in results:
         clean = re.sub(r'[^A-Z0-9]', '', text.upper())
         clean = fix_indian_plate(clean)
         if len(clean) >= 8:
             texts.append(clean)
-
     return texts
